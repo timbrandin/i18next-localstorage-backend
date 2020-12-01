@@ -1,6 +1,7 @@
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import { argv } from 'yargs';
 
 const format = argv.format || argv.f || 'iife';
@@ -23,7 +24,8 @@ export default {
   format,
   plugins: [
     babel(babelOptions),
-    nodeResolve({ jsnext: true })
+    nodeResolve({ jsnext: true }),
+    peerDepsExternal(),
   ].concat(compress ? uglify() : []),
   moduleName: 'i18nextAsyncStorageBackend',
   // moduleId: 'i18nextAsyncStorageCache',
